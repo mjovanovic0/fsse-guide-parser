@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: fsse-guide-parser
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/dev}
+    username: ${DATABASE_USERNAME:dev}
+    password: ${DATABASE_PASSWORD:dev}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+  jpa:
+    database: postgresql
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml

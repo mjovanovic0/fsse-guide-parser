@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="20180102-2308-001" author="mjovanovic">
+        <createTable tableName="FS_ITEM">
+            <column name="ID" type="DECIMAL(19,2)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RARITY" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LEVEL" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-002" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_CAN_OPEN_SEQ"/>
+
+        <createTable tableName="FS_ITEM_CAN_OPEN">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_CAN_OPEN_FS_ITEM"/>
+            </column>
+            <column name="CHEST_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_CAN_OPEN"/>
+            <dropSequence sequenceName="FS_ITEM_CAN_OPEN_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-003" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_CRAFTING_SEQ"/>
+
+        <createTable tableName="FS_ITEM_CRAFTING">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_CRAFTING_FS_ITEM"/>
+            </column>
+            <column name="STAT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MAX" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_CRAFTING"/>
+            <dropSequence sequenceName="FS_ITEM_CRAFTING_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-004" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_CREATED_BY_RECIPE_SEQ"/>
+
+        <createTable tableName="FS_ITEM_CREATED_BY_RECIPE">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_CREATED_BY_RECIPE_FS_ITEM"/>
+            </column>
+            <column name="RECIPE_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECIPE_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_CREATED_BY_RECIPE"/>
+            <dropSequence sequenceName="FS_ITEM_CREATED_BY_RECIPE_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-005" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_DROPPED_BY_SEQ"/>
+
+        <createTable tableName="FS_ITEM_DROPPED_BY">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_DROPPED_BY_FS_ITEM"/>
+            </column>
+            <column name="CREATURE_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATURE_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DROP_RATE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_DROPPED_BY"/>
+            <dropSequence sequenceName="FS_ITEM_DROPPED_BY_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-006" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_ENHANCEMENT_SEQ"/>
+
+        <createTable tableName="FS_ITEM_ENHANCEMENT">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_ENHANCEMENT_FS_ITEM"/>
+            </column>
+            <column name="ENHANCEMENT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERCENTAGE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_ENHANCEMENT"/>
+            <dropSequence sequenceName="FS_ITEM_ENHANCEMENT_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-007" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_EXTRA_INFO_SEQ"/>
+
+        <createTable tableName="FS_ITEM_EXTRA_INFO">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_EXTRA_INFO_FS_ITEM"/>
+            </column>
+            <column name="EQUIPPED_COUNT" type="DECIMAL(19,2)"/>
+            <column name="BACKPACK_COUNT" type="DECIMAL(19,2)"/>
+            <column name="GUILD_TAGGED_COUNT" type="DECIMAL(19,2)"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_EXTRA_INFO"/>
+            <dropSequence sequenceName="FS_ITEM_EXTRA_INFO_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-008" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_EXTRACTABLE_COMPONENT_SEQ"/>
+
+        <createTable tableName="FS_ITEM_EXTRACTABLE_COMPONENT">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_EXTRACTABLE_COMPONENT_FS_ITEM"/>
+            </column>
+            <column name="COMPONENT_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPONENT_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_EXTRACTABLE_COMPONENT"/>
+            <dropSequence sequenceName="FS_ITEM_EXTRACTABLE_COMPONENT_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-009" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_EXTRACTED_FROM_SEQ"/>
+
+        <createTable tableName="FS_ITEM_EXTRACTED_FROM">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_EXTRACTED_FROM_FS_ITEM"/>
+            </column>
+            <column name="FROM_ITEM_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FROM_ITEM_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_EXTRACTED_FROM"/>
+            <dropSequence sequenceName="FS_ITEM_EXTRACTED_FROM_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-010" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_FRAGMENT_STASH_SEQ"/>
+
+        <createTable tableName="FS_ITEM_FRAGMENT_STASH">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_FRAGMENT_STASH_FS_ITEM"/>
+            </column>
+            <column name="RARITY" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MAX" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_FRAGMENT_STASH"/>
+            <dropSequence sequenceName="FS_ITEM_FRAGMENT_STASH_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-011" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_INGREDIENT_SEQ"/>
+
+        <createTable tableName="FS_ITEM_INGREDIENT">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_INGREDIENT_FS_ITEM"/>
+            </column>
+            <column name="INGREDIENT_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INGREDIENT_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AMOUNT" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_INGREDIENT"/>
+            <dropSequence sequenceName="FS_ITEM_INGREDIENT_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-012" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_INVENTING_SEQ"/>
+
+        <createTable tableName="FS_ITEM_INVENTING">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_INVENTING_FS_ITEM"/>
+            </column>
+            <column name="INVENTING_LEVEL" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SUCCESS_RATE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATES_ITEM_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATES_ITEM_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_INVENTING"/>
+            <dropSequence sequenceName="FS_ITEM_INVENTING_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-013" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_QUEST_REWARD_SEQ"/>
+
+        <createTable tableName="FS_ITEM_QUEST_REWARD">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_QUEST_REWARD_FS_ITEM"/>
+            </column>
+            <column name="QUEST_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUEST_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_QUEST_REWARD"/>
+            <dropSequence sequenceName="FS_ITEM_QUEST_REWARD_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-014" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_REQUIRED_IN_QUEST_SEQ"/>
+
+        <createTable tableName="FS_ITEM_REQUIRED_IN_QUEST">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_REQUIRED_IN_QUEST_FS_ITEM"/>
+            </column>
+            <column name="QUEST_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUEST_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_REQUIRED_IN_QUEST"/>
+            <dropSequence sequenceName="FS_ITEM_REQUIRED_IN_QUEST_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-015" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_SET_STATISTICS_SEQ"/>
+
+        <createTable tableName="FS_ITEM_SET_STATISTICS">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_SET_STATISTICS_FS_ITEM"/>
+            </column>
+            <column name="SET_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SET_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ATTACK" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFENSE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ARMOR" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DAMAGE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HP" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="XP_GAIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STAMINA" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STAMINA_GAIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GOLD_GAIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_SET_STATISTICS"/>
+            <dropSequence sequenceName="FS_ITEM_SET_STATISTICS_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-016" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_SOLD_AT_SEQ"/>
+
+        <createTable tableName="FS_ITEM_SOLD_AT">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_SOLD_AT_FS_ITEM"/>
+            </column>
+            <column name="SHOP_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHOP_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_SOLD_AT"/>
+            <dropSequence sequenceName="FS_ITEM_SOLD_AT_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-017" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_STATISTICS_SEQ"/>
+
+        <createTable tableName="FS_ITEM_STATISTICS">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false" unique="true"
+                             foreignKeyName="FS_STATISTICS_FS_ITEM"/>
+            </column>
+            <column name="ATTACK" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFENSE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ARMOR" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DAMAGE" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HP" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="XP_GAIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STAMINA" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STAMINA_GAIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GOLD_GAIN" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_STATISTICS"/>
+            <dropSequence sequenceName="FS_ITEM_STATISTICS_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20180102-2308-018" author="mjovanovic">
+        <createSequence sequenceName="FS_ITEM_USED_IN_RECIPE_SEQ"/>
+
+        <createTable tableName="FS_ITEM_USED_IN_RECIPE">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ITEM_ID" type="DECIMAL(19,2)">
+                <constraints referencedTableName="FS_ITEM" referencedColumnNames="ID" nullable="false"
+                             foreignKeyName="FS_USED_IN_RECIPE_FS_ITEM"/>
+            </column>
+            <column name="RECIPE_ID" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECIPE_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="FS_ITEM_USED_IN_RECIPE"/>
+            <dropSequence sequenceName="FS_ITEM_USED_IN_RECIPE_SEQ"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20190810-1742-001" author="mjovanovic">
+    </changeSet>
+
+</databaseChangeLog>
