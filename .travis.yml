@@ -1,0 +1,15 @@
+language: java
+jdk: oraclejdk8
+
+env:
+  global:
+  - secure: "B2KFmAaahuHWBa7HstWovTyXH4hokp+ubC91e5Jhz68H1nJWc+6gC4cnewiWYmNrbQ5fiMZfYBNwux1QyOlq2SQI4WtIoOeiUBzcua0vr3JiU02GZlk/BB9HFfzd/ig6GZ86UBVEWUbu3rbpWZ3BUZZV6Jz7ZHtRdxYsDrIeyfDXwPg3t4LXuFq6gExKCTeHW6LWXLW0kHKpuBeF8ebAPoGscfkKKRvw+bxYH4BhWUckOMbfg8cfj3+6YwBXBHE0hBQ/7BDHmkG7SKgjrp+yO9Hjn1MtMlrdFzyezo7uOCve0liOIqcW22RHiJ+eAtxoDjW34/LO6TY0jUYn86wDEBGqbKvoVH/ZPu5YNcR8x93oBjpn21tawvTviidjxam88LDIt2wcwveCinsWvyZj7z4SNNQOJRr92SzV/d/JJSiDqfViX3P2Kg8WoxTOHsXQgeNuI9p/uttVW4CthKyDPVG+cvBI9vs31vEjea+ohYbCKOnz8aJwmnZAUH+FAS0OhriQUqLfYhmcYVjGaZaRdDMGiNdTTWjNlMHiQEf0KzTyzimYQ2gDppTCRnCG72rQ8x2epDWWBortIODq0UMQPaPopv4pcqPOAiIvMfwYD0ih0KcCXMXvx7lxJz4bNCYiOJQBcamucWyocdmGNAf8ytI7Rxefasx24UZlP72XRTc="
+ 
+addons:
+  sonarcloud:
+    organization: "mjovanovic0"
+    token:
+      secure: $SONAR_TOKEN
+ 
+script:
+- ./mvnw clean package sonar:sonar
