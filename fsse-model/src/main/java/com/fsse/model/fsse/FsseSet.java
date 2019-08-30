@@ -156,6 +156,8 @@ public class FsseSet {
         private List<Integer> it;
         // Stats Types
         private List<Integer> st;
+        // Rarity Types
+        private List<Integer> rt;
         // Parts - Minified items
         private List<FsseItem.Minified> p;
 
@@ -170,6 +172,7 @@ public class FsseSet {
             // Add part types and part stats as list to relax complexity on frontend for filtering
             this.it = parts.stream().map(FsseItem.Minified::getT).collect(Collectors.toList());
             this.st = new ArrayList<>();
+            this.rt = new ArrayList<>();
 
             if (this.is.getAt() != null || this.ss.getAt() != null) {
                 this.st.add(StatType.ATTACK.getId());
@@ -199,9 +202,16 @@ public class FsseSet {
                 this.st.add(StatType.GOLD_GAIN.getId());
             }
 
+            for (final FsseItem.Minified item : this.p) {
+                if(!this.rt.contains(item.getR())){
+                    this.rt.add(item.getR());
+                }
+            }
+
             // Sort itemTypes and statsTypes so we can do easy array compare in frontend
             Collections.sort(it);
             Collections.sort(st);
+            Collections.sort(rt);
         }
 
         public BigInteger getI() {
@@ -234,6 +244,10 @@ public class FsseSet {
 
         public List<Integer> getSt() {
             return st;
+        }
+
+        public List<Integer> getRt() {
+            return rt;
         }
     }
 }
